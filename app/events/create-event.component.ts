@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
     `
 })
 export class CreateEventComponent {
+    public isDirty: boolean = false;
+
     constructor(private router: Router) { }
 
     cancel() {
