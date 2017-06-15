@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { EventService } from '../shared/event.service';
 import { IEvent, ISession } from '../shared/index';
@@ -22,12 +22,15 @@ export class EventDetailsComponent {
     constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        this.event = this.eventService.getEvent(
-            +this.activatedRoute.snapshot.params['id']
-        );
+        // We're subscribing to the params observable. 
+        // When route parameters change, this method will be called.
+        this.activatedRoute.params.forEach((params: Params) => {
+            this.event = this.eventService.getEvent(+params['id']);
+            this.addMode = false;
+        });
     }
 
-    addSession(){
+    addSession() {
         this.addMode = true;
     }
 

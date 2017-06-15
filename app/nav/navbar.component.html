@@ -1,7 +1,7 @@
 <div class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" >ngEvents</a>
+      <a class="navbar-brand">ngEvents</a>
     </div>
 
     <div class="collapse navbar-collapse">
@@ -11,12 +11,12 @@
         </li>
         <li><a [routerLink]="['/events/new']" routerLinkActive="active">Create Event</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Events
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li >
+            <li>
               <a href="">Angular Connect</a>
             </li>
           </ul>
@@ -32,14 +32,22 @@
           </li>
         </ul>
       </div>
-      <form id="searchForm"  class="navbar-form navbar-right"  >
+      <form id="searchForm" (ngSubmit)="searchSessions(searchTerm)" class="navbar-form navbar-right">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search Sessions" >
+          <input type="text" class="form-control" [(ngModel)]="searchTerm" name="searchTerm" placeholder="Search Sessions">
         </div>
-        <button class="btn btn-default" >
+         <button class="btn btn-default" modal-trigger="search-results">
           Search
         </button>
       </form>
     </div>
   </div>
 </div>
+
+<simple-modal closeOnBodyClick="true" elementId="search-results" title="Matching Sessions">
+  <div class="list-group">
+    <a class="list-group-item" *ngFor="let session of foundSessions" [routerLink]="['/events', session.eventId]">
+      {{session.name}}
+    </a>
+  </div>
+</simple-modal>
