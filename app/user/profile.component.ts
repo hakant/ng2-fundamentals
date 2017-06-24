@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
     return this.firstName.valid || this.firstName.untouched;
   }
 
-  validateLastName(){
+  validateLastName() {
     return this.lastName.valid || this.lastName.untouched;
   }
 
@@ -58,10 +58,10 @@ export class ProfileComponent implements OnInit {
       this.authService.updateCurrentUser(
         formValues.firstName,
         formValues.lastName
-      );
-
-      this.toastr.success("Profile saved successfully.");
-      this.router.navigate(['events']);
+      ).subscribe(() => {
+        this.toastr.success("Profile saved successfully.");
+        this.router.navigate(['events']);
+      });
     }
   }
 
