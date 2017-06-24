@@ -19,14 +19,19 @@ export class EventDetailsComponent {
     filterBy: string = "all";
     sortBy: string = 'votes';
 
-    constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) { }
+    constructor(
+        private eventService: EventService, 
+        private activatedRoute: ActivatedRoute,
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
         // We're subscribing to the params observable. 
         // When route parameters change, this method will be called.
-        this.activatedRoute.params.forEach((params: Params) => {
-            this.event = this.eventService.getEvent(+params['id']);
+        this.activatedRoute.data.forEach((data: any) => {
+
+            this.event = data['event'];
             this.addMode = false;
+                
         });
     }
 
