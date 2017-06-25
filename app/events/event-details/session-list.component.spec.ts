@@ -27,6 +27,29 @@ describe('SessionListComponent', () => {
 
             component.ngOnChanges();
 
+            expect(component.visibleSessions.length).toBe(2);
+
+        });
+
+        it('should sort the sessions correctly', () => {
+
+            component.sessions = [
+                {name: 'Session 1', level: 'intermediate'},
+                {name: 'Session 3', level: 'intermediate'},
+                {name: 'Session 2', level: 'beginner'}
+            ] as ISession[];
+
+            component.filterBy = 'all';
+            component.sortBy = 'name';
+            component.eventId = 3;
+
+            component.ngOnChanges();
+
+            expect(component.visibleSessions.length).toBe(3);
+            expect(component.visibleSessions[0].name).toBe('Session 1');
+            expect(component.visibleSessions[1].name).toBe('Session 2');
+            expect(component.visibleSessions[2].name).toBe('Session 3');
+
         });
     });
 });
