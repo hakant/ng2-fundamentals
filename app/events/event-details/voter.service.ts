@@ -11,8 +11,7 @@ export class VoterService {
     deleteVoter(eventId: number, session: ISession, voterName: string) {
         session.voters = session.voters.filter(voter => voter !== voterName);
 
-        let url = `/api/events/${eventId}/sessions/${session.id}
-        /voters/${voterName}`;
+        let url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`;
 
         return this.http.delete(url)
             .catch(this.handleError)
@@ -26,8 +25,7 @@ export class VoterService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let url = `/api/events/${eventId}/sessions/${session.id}
-        /voters/${voterName}`;
+        let url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`;
 
         return this.http.post(url, JSON.stringify({}), options)
             .map((response) => response.json())
